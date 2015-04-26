@@ -9,5 +9,8 @@ from dmpot import draw
 from dmpot import ml
 from dmpot import feature
 
-gb = ml.GBDT()
-pca = feature.PCA()
+from dmpot import draw
+import numpy as np
+
+
+print distance.lcs_sim('abce', 'abecf')

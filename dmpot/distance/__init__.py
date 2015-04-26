@@ -4,11 +4,25 @@ The :mod:`mlpot.distance` module gathers popular distance calculating
 algorithms.
 """
 from __future__ import absolute_import, unicode_literals
+
 from .vector_dist_ import cosine
 from .vector_dist_ import pearson
-from .str_dist_ import edit_dist
+
+from .sequense_dist_ import editdist
+from .sequense_dist_ import norm_editdist
+from .sequense_dist_ import lcs
+from .sequense_dist_ import lcs_sim
+
+from .set_sim_ import jaccard
+from .set_sim_ import dice
+from .set_sim_ import cover_sim
 
 __all__ = ['cosine',
            'pearson',
-           'edit_dist'
-            ]
+           'editdist',
+           'norm_editdist',
+           'lcs',
+           'lcs_sim',
+           'jaccard',
+           'dice',
+           'cover_sim']
