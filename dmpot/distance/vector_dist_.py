@@ -29,3 +29,15 @@ def pearson(x, y):
     """
     #return np.corrcoef(x, y)[0][1]
     return pearsonr(x, y)[0]
+    
+    
+def euclid(x, y):
+    """Euclidean distance
+    """
+    return np.linalg.norm(np.array(x) - np.array(y))
+    
+    
+def pair_dist(X):
+    gridx, gridy = np.indices([len(X), len(X)])
+    grid = np.c_[gridx.ravel(), gridy.ravel()]
+    return grid, [euclid(X[i], X[j]) for i, j in grid]

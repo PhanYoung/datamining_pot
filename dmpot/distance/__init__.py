@@ -3,10 +3,13 @@
 The :mod:`mlpot.distance` module gathers popular distance calculating
 algorithms.
 """
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
+
+from numpy.linalg import norm
 
 from .vector_dist_ import cosine
 from .vector_dist_ import pearson
+from .vector_dist_ import euclid
 
 from .sequense_dist_ import editdist
 from .sequense_dist_ import norm_editdist
@@ -25,4 +28,5 @@ __all__ = ['cosine',
            'lcs_sim',
            'jaccard',
            'dice',
-           'cover_sim']
+           'cover_sim',
+           'euclid']

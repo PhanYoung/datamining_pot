@@ -27,3 +27,12 @@ def split_hist(x, seps):
     """
     bins = [x.min()] + list(seps) + [x.max()]
     return bins_hist(x, bins)
+    
+
+from ..stat import count_all    
+def desc_distribute(x, log=False):
+    cnts = count_all(x).values()
+    if log:
+        cnts = np.log(cnts)
+    pyplot.plot(sorted(cnts, reverse=True))
+    

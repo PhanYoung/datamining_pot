@@ -14,3 +14,4 @@ import numpy as np
 
 
 print distance.lcs_sim('abce', 'abecf')
+from dmpot import evaluate
