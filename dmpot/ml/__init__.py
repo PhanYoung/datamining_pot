@@ -9,8 +9,13 @@ GBDT = GradientBoostingClassifier
 from sklearn.ensemble import GradientBoostingRegressor
 GBRT = GradientBoostingRegressor
 
+from search_parameters_ import SvmParamSearcher
+from batch_model_test_ import BatchClassify
+
 __all__ = ['SVM', 
            'SVR',
            'GBDT',
-           'GBRT'
+           'GBRT',
+           'SvmParamSearcher',
+           'BatchClassify'
            ]
