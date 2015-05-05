@@ -18,11 +18,12 @@ def sample(X, y, rate, randseed=49):
     -------
     <float> correlation coefficient
     """
-    if rate >= 1:
-        return X, y
+    sampleCnt = rate
+    if rate < 1:
+        sampleCnt = int(len(y) * rate)
     select_X, test_X, select_y, test_y = train_test_split(X, y, 
-                                          test_size=int(len(y) * (1-rate)), 
-                                          random_state=randseed)
+                                         test_size=len(y) - sampleCnt, 
+                                         random_state=randseed)
     return select_X, select_y                           
 
 
