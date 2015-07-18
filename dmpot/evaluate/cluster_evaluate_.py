@@ -4,7 +4,10 @@ from ..distance import euclid
 def compactness(X):
     '''内聚度
     '''
-    pass
+    return np.var(X, axis=0).sum()
+    #等价于下面的
+    #c = X.mean(axis=0)
+    #return np.mean([np.linalg.norm(c-x, 2) ** 2 for x in X])
 
 
 def r_square(Xs):
@@ -15,8 +18,6 @@ def r_square(Xs):
 
 
 def rmsstd(Xs):
-    for X in Xs:
-        n
     pass
 
 
