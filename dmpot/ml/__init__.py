@@ -11,11 +11,13 @@ GBRT = GradientBoostingRegressor
 
 from search_parameters_ import SvmParamSearcher
 from batch_model_test_ import BatchClassify
+from cluster_ import search_k
 
 __all__ = ['SVM', 
            'SVR',
            'GBDT',
            'GBRT',
            'SvmParamSearcher',
-           'BatchClassify'
+           'BatchClassify',
+           'search_k'
            ]

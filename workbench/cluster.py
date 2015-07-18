@@ -5,8 +5,9 @@ import sklearn
 import numpy as np
 
 #readfile
-i, v = read_id_values('../data/outfile')
-
+#i, v = read_id_values('../data/outfile')
+#v = sklearn.datasets.make_biclusters((1000, 10), 5)[0]
+v = sklearn.datasets.make_blobs(n_samples=1000, n_features=10, centers=5)[0]
 #scaler
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
