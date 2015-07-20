@@ -13,7 +13,7 @@ def bins_hist(x, bins):
     """
     histStat = np.histogram(x, bins)
     cnts = histStat[0]
-    labels = ["%s-%s"%(bins[i], bins[i+1]) for i in range(len(bins)-1)]
+    labels = ["%s-%s"%(bins[i], bins[i+1]-1) for i in range(len(bins)-1)]
     pyplot.xticks(range(len(cnts)), labels)
     return pyplot.bar(range(len(histStat[0])), cnts, align='center')
     
@@ -25,7 +25,8 @@ def split_hist(x, seps):
     x <array_like> : input values
     seps <array_like> : seperators of bins, len(seps) == n_bins - 1
     """
-    bins = [x.min()] + list(seps) + [x.max()]
+    seps = [s for s in seps if s < x.max()]
+    bins = [x.min()] + seps + [x.max()]
     return bins_hist(x, bins)
     
 
@@ -35,4 +36,5 @@ def desc_distribute(x, log=False):
     if log:
         cnts = np.log(cnts)
     pyplot.plot(sorted(cnts, reverse=True))
-    
+
+
