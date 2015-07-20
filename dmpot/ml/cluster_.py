@@ -12,10 +12,10 @@ import numpy as np
 def deriv(Y):
     return [Y[i+1] - Y[i] for i in range(len(Y)-1)]
 
-def search_k(X, max_n=20, draw=False):
+def search_k(X, max_n=20, n_jobs=-1, draw=False):
     scores = []
     for k in range(1, max_n):
-        kmod = KMeans(n_clusters=k)
+        kmod = KMeans(n_clusters=k, n_jobs=n_jobs, )
         r = kmod.fit_predict(X)
         score = total_compact(X, r)
         scores.append(score)
