@@ -3,12 +3,6 @@
 from collections import Counter
 import numpy as np
 
-def cumulated_grade(X):
-    cnt = Counter(X)
-
-
-
-
 class CumulatedGrader(object):
     def __init__(self, n_grades=10):
         self.n_grades = n_grades
@@ -50,6 +44,8 @@ class Histogramizer(object):
         self.total_ = 0
         
     def fit(self, X):
+        ''' X : 1-dimension Array-like 
+        '''
         self.hist_ = Counter(X)
         self.hist_x_ = np.array(sorted(self.hist_.keys()))
         self.hist_y_ = np.array([self.hist_[x] for x in self.hist_x_])
@@ -69,3 +65,24 @@ class Histogramizer(object):
     def transform(self, X):
         return np.array([self.transform_one(x) for x in X])
     
+    
+    
+class Histogramizer_2D(object):
+    def __init__(self):
+        self.histogramizers_ = None
+        
+    def fit(self, X):
+#        try:
+            X = np.array(X)
+            self.histogramizers_ = [Histogramizer() for i in range(len(X[0]))]
+            for i, h in enumerate(self.histogramizers_):
+                h.fit(X[:, i])
+#        except:
+#            return
+
+    def transform_one(self, x):
+        return np.array([h.transform_one(x[i]) for (i,h) in enumerate(self.histogramizers_)])
+        #TODO: IMPROVE
+        
+    def transform(self, X):
+        return np.array([self.transform_one(x) for x in X])

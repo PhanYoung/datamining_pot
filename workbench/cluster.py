@@ -10,23 +10,31 @@ def read_id_values(inpath, delimiter='\x01'):
     value = dat[:, 1:].astype(float)
     return uid, value
     
-
-#readfile
-i, v = read_id_values('../data/outfile')
-#v = sklearn.datasets.make_biclusters((1000, 10), 5)[0]
-#v = sklearn.datasets.make_blobs(n_samples=1000, n_features=10, centers=5)[0]
-#scaler
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-s = scaler.fit_transform(v)
-#denoise
-s[s>3] = 3.
-
-#find cluster parameters
-from dmpot.ml.cluster_ import search_k
-best_score = search_k(s, draw=True)
-print best_score
-
+def read_id_values_mod(inpath, delimiter='\x01'):
+    dat = np.loadtxt(inpath, dtype=str, delimiter=delimiter)
+    uid = dat[:, 0]
+    value = dat[:, 1:-1].astype(float)
+    mod = dat[:, -1]
+    return uid, value, mod
+    
+    
+    
+##readfile
+i, v, m = read_id_values('../data/outfile')
+##v = sklearn.datasets.make_biclusters((1000, 10), 5)[0]
+##v = sklearn.datasets.make_blobs(n_samples=1000, n_features=10, centers=5)[0]
+##scaler
+#from sklearn.preprocessing import StandardScaler
+#scaler = StandardScaler()
+#s = scaler.fit_transform(v)
+##denoise
+#s[s>3] = 3.
+#
+##find cluster parameters
+#from dmpot.ml.cluster_ import search_k
+#best_score = search_k(s, draw=True)
+#print best_score
+#
 
 #cluster
 #n_clusters=20
@@ -50,3 +58,13 @@ print best_score
 #    
     
 # TODO: cumulated_grade score distribution
+
+#display
+from dmpot.measure_transform import Histogramizer_2D
+tags = ["sms", "phone", "game", "photo", "web", "social", "email", "shopping",
+        "reading", "video"]
+        
+h = Histogramizer_2D()
+h.fit(v)
+u = h.transform(v)
+m = np.array([u[r==i].mean(axis=0) for i in range(6)])

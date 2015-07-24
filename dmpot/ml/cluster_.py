@@ -15,7 +15,7 @@ def deriv(Y):
 def search_k(X, max_n=20, n_jobs=-1, draw=False):
     scores = []
     for k in range(1, max_n):
-        kmod = KMeans(n_clusters=k, n_jobs=n_jobs, )
+        kmod = KMeans(n_clusters=k, n_jobs=n_jobs)
         r = kmod.fit_predict(X)
         score = total_compact(X, r)
         scores.append(score)
@@ -28,3 +28,4 @@ def search_k(X, max_n=20, n_jobs=-1, draw=False):
         print D
         print V
     return V.index(max(V)) + 2
+
