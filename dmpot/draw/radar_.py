@@ -141,7 +141,7 @@ def draw_radar(data, spoke_labels=None, grids=[0.2, 0.4, 0.6, 0.8],
     
 def draw_radar_set(datas, n_cols, n_rows=None, titles=None, colors=None, 
                    auto_scale=False, grids=[0.2, 0.4, 0.6, 0.8],
-                   spoke_labels=None, figsize=(12, 12), pic_title=None,
+                   spoke_labels=None, figsize=(12, 26), pic_title=None,
                    save_path=None):
     datas = np.array(datas)
     
@@ -161,15 +161,16 @@ def draw_radar_set(datas, n_cols, n_rows=None, titles=None, colors=None,
         
        
     fig = plt.figure(figsize=figsize)
-    fig.subplots_adjust(wspace=0.25, hspace=0.25, top=0.95, bottom=0.1)
+    fig.subplots_adjust(wspace=0, hspace=0.5, top=0.95, bottom=0.1)
     theta = radar_factory(n_indice, frame='polygon')
     
-    def draw_all(datas, title="ALL"):
+
+    def draw_all(datas, title="COMBINE"):
         ax = fig.add_subplot(n_rows, n_cols, 1, projection='radar')
         if not auto_scale:
             plt.axhspan(0, 1, 0, 1, visible=False)
         plt.rgrids(grids)
-        ax.set_title("ALL", weight='bold', size='medium', position=(0.5, 1.08),
+        ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.08),
                      horizontalalignment='center', verticalalignment='center')
         for d, color in zip(datas, colors):
             ax.plot(theta, d, color=color)
@@ -187,13 +188,15 @@ def draw_radar_set(datas, n_cols, n_rows=None, titles=None, colors=None,
         ax.fill(theta, data, facecolor=color, alpha=0.25)
         ax.set_varlabels(spoke_labels)
     
-    draw_all(datas)
-    for i, (d, c, t) in enumerate(zip(datas, colors, titles)):
-        draw_sub(d, i+3, t, c)
-        
     if pic_title:   
         plt.figtext(0.5, 1.01, pic_title,
                     ha='center', color='black', weight='bold', size='large')
+    
+    draw_all(datas)
+    for i, (d, c, t) in enumerate(zip(datas, colors, titles)):
+        draw_sub(d, i+2, t, c)
+        
+
     if save_path:
         plt.savefig(save_path)
     
