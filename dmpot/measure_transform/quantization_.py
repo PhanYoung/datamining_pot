@@ -64,6 +64,10 @@ class Histogramizer(object):
         
     def transform(self, X):
         return np.array([self.transform_one(x) for x in X])
+        
+    def fit_transform(self, X):
+        self.fit(X)
+        return self.transform(X)
     
     
     

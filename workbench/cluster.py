@@ -29,7 +29,7 @@ draw_data = []
 #hgm.fit(val)
 #nVal = hgm.transform(val)
 #vMean = np.array(nVal.mean(axis=0))
-#draw_data.append(vMean)
+draw_data.append(vMean)
 
     
 ##v = sklearn.datasets.make_biclusters((1000, 10), 5)[0]
@@ -43,34 +43,45 @@ draw_data = []
     
     
 #cluster FOR ALL
-v = val
-hgm = Histogramizer_2D()
-hgm.fit(v)
-nVal = hgm.transform(v)
-vMean = np.array(nVal.mean(axis=0))
-draw_data.append(vMean)
+    
+    
+    
+    
+#v = val
+    
+    
+    
+    
+    
+    
+    
+#hgm = Histogramizer_2D()
+#hgm.fit(v)
+#nVal = hgm.transform(v)
+#vMean = np.array(nVal.mean(axis=0))
+#draw_data.append(vMean)
 
 ##scaler
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-s = scaler.fit_transform(v)
-#denoise
-s[s>3] = 3.
+#from sklearn.preprocessing import StandardScaler
+#scaler = StandardScaler()
+#s = scaler.fit_transform(v)
+##denoise
+#s[s>3] = 3.
 
 #print 'clustering...'
-#n_clusters = 7
+n_clusters = 7
 #km = KMeans(n_clusters=n_clusters)
 #r = km.fit_predict(s)
 
 
 
-#means = [nVal[r==i].mean(axis=0) for i in range(n_clusters)]
-#draw_data += means
-#
-#tags = ["sms", "phone", "game", "photo", "web", "social", "email", "shopping",
-#   "reading", "video"]
-#titles = ["ALL:%s" % len(nVal)] + ["%s:%s" % ((sum(r==i) * 1. / len(nVal)), sum(r==i)) for i in range(n_clusters)]
-#draw_radar_set(draw_data, 2, spoke_labels=tags, pic_title=m, titles=titles, save_path='../data/'+m+'.png')
+means = [nVal.mean(axis=0) for i in range(n_clusters)]
+draw_data += means
+
+tags = ["sms", "phone", "game", "photo", "web", "social", "email", "shopping",
+   "reading", "video"]
+titles = ["ALL:%s" % len(nVal)] + ["%s:%s" % ((sum(r==i) * 1. / len(nVal)), sum(r==i)) for i in range(n_clusters)]
+draw_radar_set(draw_data, 2, spoke_labels=tags, pic_title=m, titles=titles, save_path='../data/'+m+'.png')
 
 
 #output result
