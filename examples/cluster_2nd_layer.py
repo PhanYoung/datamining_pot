@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
-
-# -*- coding: utf-8 -*-
 import sys
 sys.path.append('..')
-import sklearn
+
 import numpy as np
+
 from dmpot.ml.cluster_ import search_k
-from sklearn.cluster import KMeans
 from dmpot.draw import draw_radar_set
 from dmpot.measure_transform import Histogramizer_2D
-from sklearn.preprocessing import StandardScaler
 
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
 
 def read_id_values(inpath, delimiter='\x01'):
     dat = np.loadtxt(inpath, dtype=str, delimiter=delimiter)
@@ -36,6 +36,7 @@ _PIC_TITLE = "CLUSTER"
 
 _PIC_PATH = '../data/cluster_result'
 
+_SPACE_RATE = 0.85
 
 
 if __name__ == "__main__":
@@ -48,10 +49,22 @@ if __name__ == "__main__":
     #denoise
     s[s>3] = 3.
     
+    #----------------PCA-------------------
+    pca = PCA()
+    p_all = pca.fit_transform(s)
+    space_ratio = pca.explained_variance_ratio_
+    space_sum = 0
+    for i, v in enumerate(space_ratio):
+        space_sum += v
+        if space_sum > _SPACE_RATE:
+            break
+    n_conponents = i + 1
+    p = p_all[:, : n_conponents]
+    
     #----------------Cluster-------------------
-    n_clusters = search_k(s)
+    n_clusters = search_k(p)
     km = KMeans(n_clusters=n_clusters)
-    r = km.fit_predict(s)
+    r = km.fit_predict(p)
     
     #----------------Clusters' Indices-------------------
     hgm = Histogramizer_2D()
